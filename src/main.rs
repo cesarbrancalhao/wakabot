@@ -46,8 +46,8 @@ fn main() {
     let working_dir = env::current_dir().expect("Unable to get current directory.");
     let code_dir = working_dir.join("src");
 
-    println!("What language do you want to farm?.");
-    println!("Use extensions only. (py, js, any extension).");
+    println!("Select language you want to farm.");
+    println!("Type the extension only (eg. go, js, rs).");
     let mut selected_extension = String::new();
     io::stdin().read_line(&mut selected_extension).expect("Failed to read line.");
     let selected_extension = selected_extension.trim();
