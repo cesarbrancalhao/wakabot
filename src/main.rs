@@ -6,6 +6,7 @@ use std::path::{Path, PathBuf};
 use std::thread::sleep;
 use std::time::Duration;
 
+
 fn find_file(directory: &Path, filename: &str) -> Option<PathBuf> {
     for entry in fs::read_dir(directory).expect("Directory not found.") {
         let entry = entry.expect("Error reading entry.");
@@ -19,6 +20,26 @@ fn find_file(directory: &Path, filename: &str) -> Option<PathBuf> {
         }
     }
     None
+}
+
+fn run_typing_process(file_path: PathBuf) {
+    let file = File::open(&file_path).expect("Unable to open file.");
+    let reader = BufReader::new(file);
+    let mut enigo = Enigo::new();
+
+    for line in reader.lines() {
+        let line = line.expect("Unable to read line.");
+        for char in line.chars() {
+            match char {
+                '_' => enigo.key_click(Key::Return),
+                '\t' => enigo.key_click(Key::Tab),
+                _ => {
+                    sleep(Duration::from_millis(2000));
+                    enigo.key_sequence(&char.to_string());
+                }
+            }
+        }
+    }
 }
 
 fn main() {
@@ -42,23 +63,7 @@ fn main() {
         sleep(Duration::from_millis(7000));
 
         loop {
-            let file = File::open(&found_file).expect("Unable to open file.");
-            let reader = BufReader::new(file);
-            let mut enigo = Enigo::new();
-
-            for line in reader.lines() {
-                let line = line.expect("Unable to read line.");
-                for char in line.chars() {
-                    match char {
-                        '\n' => enigo.key_click(Key::Return),
-                        '\t' => enigo.key_click(Key::Tab),
-                        _ => {
-                            sleep(Duration::from_millis(500));
-                            enigo.key_sequence(&char.to_string());
-                        }
-                    }
-                }
-            }
+            run_typing_process(found_file.clone());
         }
     } else {
         println!("File extension not supported.");
