@@ -1,7 +1,7 @@
 # WakaFarm
 Simple and intuitive Wakatime farmer.
 
-### Warning: read the [how to use](#start) before running.
+_**Warning**: read the [how to use](#start) before running._
 
 ## Table of Contents
 
@@ -62,7 +62,7 @@ And type the extension of the language you wanna farm and open the file where yo
 Select language you want to farm.
 Type the extension only (eg. go, js, rs).
 
-"rs" # <- your input
+"rs" <- your input
 
 Found "../wakafarm/src/rs.rs"
 The typing will start in 7 seconds.
@@ -80,10 +80,8 @@ Note that the program reads ```_``` as ```\n```, so you should put _ on the end 
 js.js:
 ```js
 console.log("Hello world!");_
-
 ```
-*Ps: it will read comments as well.*
-I would recommend adding a simple code.
+*Ps: it will read comments as well.* I would recommend adding a simple code.
 
 ## <a name="stacks">Stacks and libraries</a>
 
