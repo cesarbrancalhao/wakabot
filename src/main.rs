@@ -34,7 +34,7 @@ fn run_typing_process(file_path: PathBuf) {
                 '_' => enigo.key_click(Key::Return),
                 '\t' => enigo.key_click(Key::Tab),
                 _ => {
-                    sleep(Duration::from_millis(2000));
+                    sleep(Duration::from_millis(15000));
                     enigo.key_sequence(&char.to_string());
                 }
             }
