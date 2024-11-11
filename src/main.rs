@@ -26,6 +26,7 @@ fn run_typing_process(file_path: PathBuf) {
     let file = File::open(&file_path).expect("Unable to open file.");
     let reader = BufReader::new(file);
     let mut enigo = Enigo::new();
+    let mut first = true;
 
     for line in reader.lines() {
         let line = line.expect("Unable to read line.");
@@ -34,8 +35,9 @@ fn run_typing_process(file_path: PathBuf) {
                 '_' => enigo.key_click(Key::Return),
                 '\t' => enigo.key_click(Key::Tab),
                 _ => {
-                    sleep(Duration::from_millis(15000));
+                    sleep(Duration::from_millis(if !first { 15000 } else { 0 }));
                     enigo.key_sequence(&char.to_string());
+                    first = false;
                 }
             }
         }
@@ -57,10 +59,10 @@ fn main() {
 
     if let Some(found_file) = find_file(&code_path, &file_name) {
         println!("Found {:?}", found_file);
-        println!("The typing will start in 7 seconds.");
+        println!("The typing will start in 5 seconds.");
         println!("The program will continue running until you press ctrl+c to stop.");
 
-        sleep(Duration::from_millis(7000));
+        sleep(Duration::from_millis(5000));
 
         loop {
             run_typing_process(found_file.clone());
