@@ -1,4 +1,4 @@
-# WakaFarm
+# WakaBot
 Simple and easy Wakatime bot.
 
 _**Warning**: read the [how to use](#start) before running._
